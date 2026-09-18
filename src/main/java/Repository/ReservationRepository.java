@@ -1,0 +1,17 @@
+package Repository;
+
+import Model.Reservation;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+public interface ReservationRepository {
+
+    void save(Reservation reservation);
+    Optional<Reservation> findById(UUID id);
+    Optional<Reservation> findByCode(String code);
+    List<Reservation> findByUserId(UUID userId);
+    List<Reservation> findAll() ;
+
+}

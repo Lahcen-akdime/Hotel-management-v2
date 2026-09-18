@@ -1,7 +1,9 @@
-package Repository.impl;
+package main.java.Repository.impl;
 
-import Model.User;
-import Repository.UserRepository;
+
+import main.java.Repository.UserRepository;
+import main.java.Model.User;
+import main.java.Repository.UserRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;

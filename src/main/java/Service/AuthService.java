@@ -1,10 +1,11 @@
-package Service;
+package main.java.Service;
 
-import Model.User;
-import Repository.impl.InMemoryUserRepository;
+
 import Exception.InvalidCredentialsException ;
 import Exception.EmailAlreadyExistsException ;
 import Util.ValidationUtils;
+import main.java.Model.User;
+import main.java.Repository.impl.InMemoryUserRepository;
 
 import java.util.Optional;
 import java.util.UUID;

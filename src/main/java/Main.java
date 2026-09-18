@@ -1,11 +1,8 @@
 package main.java;//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 
-import Model.User;
-import Service.AuthService;
-import Service.ReservationService;
-import Service.RoomService;
-import Service.UpdateReservationState;
+import main.java.Model.User;
+import main.java.Service.*;
 import Util.InputUtils;
 import Exception.InvalidCredentialsException ;
 

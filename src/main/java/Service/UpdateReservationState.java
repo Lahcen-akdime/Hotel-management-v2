@@ -1,4 +1,6 @@
-package Service;
+package main.java.Service;
+
+import main.java.Service.ReservationService;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

@@ -1,15 +1,14 @@
-package Service;
+package main.java.Service;
 
 import Enums.ReservationStatus;
 import Model.Reservation;
 import Model.Room;
-import Repository.impl.InMemoryReservationRepository;
+import main.java.Repository.impl.InMemoryReservationRepository;
 import Util.CalculationUtils;
 import Util.DateUtils;
 import Util.MoneyUtils;
 import Util.ValidationUtils;
 import Exception.RoomUnavailableException ;
-
 import java.math.BigDecimal;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -22,6 +21,9 @@ import java.util.UUID;
 
 import Exception.InvalidReservationDateException ;
 import Exception.InvalidReservationException ;
+import main.java.Repository.impl.InMemoryReservationRepository;
+import main.java.Service.AuthService;
+import main.java.Service.RoomService;
 
 public class ReservationService {
 

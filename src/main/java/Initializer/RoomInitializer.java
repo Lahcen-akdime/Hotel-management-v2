@@ -1,6 +1,6 @@
-package Initializer;
+package main.java.Initializer;
 
-import Repository.impl.InMemoryRoomRepository;
+import main.java.Repository.impl.InMemoryRoomRepository;
 
 public class RoomInitializer {
     static InMemoryRoomRepository inMemoryRoomRepository = new InMemoryRoomRepository() ;

@@ -1,6 +1,7 @@
-package Repository;
+package main.java.Repository;
 
-import Model.User;
+import main.java.Model.User;
+import main.java.Model.User;
 
 import java.util.List;
 import java.util.Optional;

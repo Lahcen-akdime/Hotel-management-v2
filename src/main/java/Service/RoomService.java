@@ -1,13 +1,14 @@
-package Service;
+package main.java.Service;
 
 import Enums.RoomStatus;
 import Model.Room;
-import Repository.RoomRepository;
-import Repository.impl.InMemoryRoomRepository;
+
 
 import java.util.List;
 import java.util.Optional;
 import Exception.RoomUnavailableException ;
+import main.java.Repository.RoomRepository;
+import main.java.Repository.impl.InMemoryRoomRepository;
 
 public class RoomService {
 

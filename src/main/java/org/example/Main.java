@@ -1,10 +1,14 @@
-package org.example;
+package main.java.org.example;
+
+import main.java.Config.DatabaseConfig;
+import main.java.db.DatabaseConnection;
+
+import java.sql.Connection;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     static void main() {
-        String url = "jdbc:postgresql://localhost:5432/rooms";
 
     }
 }

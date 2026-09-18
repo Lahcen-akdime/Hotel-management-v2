@@ -1,10 +1,9 @@
-package Repository.impl;
+package main.java.Repository.impl;
 
 import Enums.ReservationStatus;
 import Model.Reservation;
 import Model.Room;
-import Model.User;
-import Repository.ReservationRepository;
+import main.java.Repository.ReservationRepository;
 
 import java.util.*;
 import java.util.stream.Stream;

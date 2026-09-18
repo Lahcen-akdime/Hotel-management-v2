@@ -1,9 +1,10 @@
-package Repository.impl;
+package main.java.Repository.impl;
 
 import Model.Room;
 import Enums.RoomStatus;
 import Enums.RoomType;
-import Repository.RoomRepository;
+import main.java.Repository.RoomRepository;
+
 
 import java.math.BigDecimal;
 import java.util.*;

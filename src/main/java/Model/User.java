@@ -1,21 +1,32 @@
-package main.java.Model;
+package Model;
 
+
+import Enums.UserRole;
+import Util.SaltGeneratorUtil;
+
+import java.util.Random;
 import java.util.UUID;
 
 public class User {
 
-    UUID id ;
-    String fullName ;
-    String email ;
-    String phone ;
-    String password ;
+    private UUID id ;
+    private String fullName ;
+    private String email ;
+    private String phone ;
+    private String password ;
+    private UserRole userRole ;
+    private String passwordHash ;
+    private String salt ;
 
-    public User(String fullName , String email , String phone ,  String password) {
-        this.id = UUID.randomUUID();
+    public User(String fullName , String email , String phone ,  String password , UserRole userRole,UUID id,String salt) {
+        this.id = id;
         this.email = email;
         this.fullName = fullName;
         this.phone = phone;
         this.password = password;
+        this.userRole = userRole ;
+        this.passwordHash =
+        this.salt = salt ;
     }
 
     public UUID getId() {
@@ -36,6 +47,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public String getSalt() {
+        return salt;
     }
 
     public void setFullName(String fullName) {

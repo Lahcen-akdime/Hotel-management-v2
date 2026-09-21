@@ -1,6 +1,6 @@
-package main.java.Enums;
+package Enums;
 
 public enum UserRole {
-    CLIENT ,
-    ADMIN
+    client ,
+    admin
 }

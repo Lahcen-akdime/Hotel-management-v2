@@ -1,7 +1,9 @@
 package Util;
+import Enums.UserRole;
 import Exception.InvalidCredentialsException ;
 import Exception.EmailAlreadyExistsException ;
 import Exception.InvalidReservationException ;
+import Exception.UnothorizedRequestException ;
 import Model.Room;
 
 import java.time.LocalDate;
@@ -23,15 +25,18 @@ public class ValidationUtils {
             throw new EmailAlreadyExistsException("The email is already exist !!") ;
         }
     }
+    public static void CheckisAdmin(UserRole userRole){
+        if(!userRole.equals(UserRole.admin)){
+            throw new UnothorizedRequestException("You cant access this page") ;
+        }
+    }
     public static void ThisEmailShouldExist(Boolean isExist){
         if(!isExist){
             throw new InvalidCredentialsException(" The email is not exist ");
         }
     }
-    public static void ThisEmailAndPassworShouldMatch(Boolean isExist){
-        if(!isExist){
-            throw new InvalidCredentialsException(" The email or password is false ");
-        }
+    public static void ThisEmailAndPassworShouldMatch(String email , String password){
+
     }
     public static void TheCapaciteOfRoomIsPossible(int numberOfGuests , Room room){
         if(numberOfGuests > room.getCapacite()){

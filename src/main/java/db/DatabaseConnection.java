@@ -1,6 +1,7 @@
-package main.java.db;
+package db;
 
-import main.java.Config.DatabaseConfig;
+
+import Config.DatabaseConfig;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,6 +16,7 @@ public class DatabaseConnection {
         try{
         Connection connection = DriverManager.getConnection(databaseConfig.getDbUrl(),databaseConfig.getDbUser(), databaseConfig.getDbPassword());
         this.connection = connection ;
+            System.out.println("Connection : "+connection);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

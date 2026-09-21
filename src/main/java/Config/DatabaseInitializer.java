@@ -1,6 +1,7 @@
-package main.java.Config;
+package Config;
 
-import main.java.db.DatabaseConnection;
+
+import org.flywaydb.core.Flyway;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,13 +11,14 @@ import java.sql.Statement;
 
 public class DatabaseInitializer {
 
-    public String filePath = "src/main/resources/schema.sql" ;
+    public DatabaseConfig databaseConfig = new DatabaseConfig() ;
 
-    public void executeSqlFile(Connection connection )throws IOException , SQLException {
+    public void executeSqlFile()throws IOException , SQLException {
         try {
-        Statement stmt = connection.createStatement() ;
-        //stmt.close();
-        } catch (SQLException e) {
+            Flyway flyway = Flyway.configure().dataSource(databaseConfig.getDbUrl(),databaseConfig.getDbUser(),databaseConfig.getDbPassword()).load() ;
+            flyway.migrate() ;
+            //stmt.close();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

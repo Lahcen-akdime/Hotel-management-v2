@@ -12,7 +12,9 @@ public class Reservation {
     private String reservationCode ;
 
     private UUID userId ;
-    private Integer roomNumber ;
+    private UUID roomId ;
+    private String roomNumber ;
+
 
     private LocalDate checkin ;
     private LocalDate checkout ;
@@ -27,17 +29,18 @@ public class Reservation {
 
     static private int conteurPourCode = 1 ;
 
-    public Reservation(Integer roomNumber, LocalDate checkin, LocalDate checkout, int numberOfGuests, Long numberOfNights, BigDecimal totalPrice , UUID userId ) {
-        this.roomNumber = roomNumber;
+    public Reservation(Room room, LocalDate checkin, LocalDate checkout, int numberOfGuests, Long numberOfNights, BigDecimal totalPrice , UUID userId ) {
+        this.roomId = room.getId();
         this.checkin = checkin;
         this.checkout = checkout;
         this.numberOfGuests = numberOfGuests;
         this.numberOfNights = numberOfNights;
         this.totalPrice = totalPrice;
         this.userId = userId ;
-        this.reservationCode = "R-"+roomNumber+checkin+(conteurPourCode++);
+        this.reservationCode = "R-"+room.getRoomNumber()+checkin+(conteurPourCode++);
         this.reservationStatus = ReservationStatus.CONFIRMED ;
         this.cretedAt = LocalDateTime.now();
+        this.roomNumber = room.getRoomNumber() ;
     }
 
     public UUID getId() {
@@ -52,7 +55,7 @@ public class Reservation {
         return userId;
     }
 
-    public Integer getRoomNumber() {
+    public String getRoomNumber() {
         return roomNumber;
     }
 

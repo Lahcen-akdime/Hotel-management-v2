@@ -16,8 +16,7 @@ public class DatabaseConfig {
     static String dbPassword  ;
 
     public DatabaseConfig(){
-        try{
-            InputStream input = new FileInputStream(filePath) ;
+        try(InputStream input = new FileInputStream(filePath)){
             properties.load(input);
             dbUrl = properties.getProperty("db.url") ;
             dbUser = properties.getProperty("db.username") ;

@@ -16,6 +16,7 @@ import Exception.InvalidCredentialsException ;
 public class JdbcUserRepository implements UserRepository {
     static Connection connection = DatabaseConnection.getInstance().getConnection() ;
     static String saveQuery = "INSERT INTO users (id,full_name,email,phone,password_hash,user_role,salt) VALUES (?, ?, ?, ?, ?, ?, ?);" ;
+    static String updateUserQuery = "UPDATE users SET full_name = ?, email = ? , phone = ?, password_hash = ? WHERE id = ?;" ;
     static String findByEmailQuery = "SELECT id,full_name,email,phone,password_hash,user_role,salt FROM users WHERE email = ?" ;
     @Override
     public void save(User user) {
@@ -46,7 +47,7 @@ public class JdbcUserRepository implements UserRepository {
         return null;
     }
 
-    @Override
+
     public User RetreveByCredantials(String email,String password) {
         try {
             PreparedStatement statement = connection.prepareStatement(findByEmailQuery);
@@ -60,7 +61,7 @@ public class JdbcUserRepository implements UserRepository {
                 String salt = result.getString("salt") ;
                 String passwordHash = result.getString("password_hash") ;
                 if(PasswordHasher.HashPassword(password,salt).equals(passwordHash)){
-                    return new User(full_name,email,phone,passwordHash, UserRole.valueOf(user_role),id,salt);
+                    return new User(full_name,email,phone,password,passwordHash, UserRole.valueOf(user_role),id,salt);
                 }
                 else {
                     throw new InvalidCredentialsException("The password not match") ;
@@ -87,8 +88,21 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public User editProfile(User user, String newFullName, String newPhone, String newPassword, String newEmail) {
-        return null;
+    public User editProfile(User ExistingUser, String newFullName, String newPhone, String newPassword, String newEmail) {
+        try {
+        User user = this.RetreveByCredantials(ExistingUser.getEmail(),ExistingUser.getNotHashedpassword());
+        PreparedStatement statement = connection.prepareStatement(updateUserQuery) ;
+            statement.setString(1,newFullName);
+            statement.setString(2,newEmail);
+            statement.setString(3,newPhone);
+            statement.setString(4,newPassword);
+            statement.setObject(5,user.getId());
+            statement.execute() ;
+        return user ;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null ;
     }
 
     @Override

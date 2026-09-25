@@ -26,28 +26,9 @@ public class Main {
     //    System.out.println("Your password is updated seccussfuly");
     //}
 
-    //public static void updateProfileForm(User user){
-    //    System.out.println("=== Update Profile Form ===");
-    //    String newFullName = inputUtils.lireString("neauvau full name ");
-    //    String newEmail = inputUtils.lireString("neauvau email ");
-    //    String newPassword = inputUtils.lireString("neauvau mot de pass ");
-    //    String newPhone = inputUtils.lireString("neauvau phone number ");
-    //    authService.editProfile(user,newFullName,newPhone,newPassword,newEmail) ;
-    //    System.out.println("User updated seccessfuly");
-    //}
 
-    // ============== For reservations =============
 
-    //public static void createReservation(){
-    //    System.out.println("====== Cree ton reservation ici ======\n");
-    //    System.out.println("Le nombre de chambre ?");
-    //    Integer roomNumber = inputUtils.lireInt();
-    //    String checkin = inputUtils.lireString("date d'entree en ce format : 2026-09-09") ;
-    //    String checkout = inputUtils.lireString("date de sortie en ce format : 2026-09-09") ;
-    //    System.out.println("Combien de guest ?");
-    //    int numberOfGuests = inputUtils.lireInt();
-    //    reservationService.createReservation(roomNumber,checkin,checkout,numberOfGuests);
-    //}
+
 //
     //public static void updateReservation(){
     //    System.out.println("Shoose reservation number that you want to update it");

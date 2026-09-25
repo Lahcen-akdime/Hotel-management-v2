@@ -19,8 +19,7 @@ public class AuthService {
         ValidationUtils.EmailValidator(email);
         ValidationUtils.PasswordValidator(password) ;
         String salt = SaltGeneratorUtil.generateSalt() ;
-//        ValidationUtils.ThisEmailShouldNotExist(inMemoryUserRepository.existsByEmail(email));
-        User user = new User(fullName,email,phone,PasswordHasher.HashPassword(password,salt),userRole,UUID.randomUUID(),salt) ;
+        User user = new User(fullName,email,phone,password,PasswordHasher.HashPassword(password,salt),userRole,UUID.randomUUID(),salt) ;
         jdbcUserRepository.save(user);
         currentUser = user ;
         return user ;
@@ -44,11 +43,12 @@ public class AuthService {
         return currentUser ;
     }
 
-//    public User editProfile(User user,String newFullName,String newPhone,String newPassword,String newEmail){
-//        ValidationUtils.EmailValidator(newEmail);
-//        ValidationUtils.PasswordValidator(newPassword);
-//        return inMemoryUserRepository.editProfile(user,newFullName,newPhone,newPassword,newEmail) ;
-//    }
+    public User editProfile(User user,String newFullName,String newPhone,String newPassword,String newEmail){
+        ValidationUtils.EmailValidator(newEmail);
+        ValidationUtils.PasswordValidator(newPassword);
+        String HashedPassword = PasswordHasher.HashPassword(newPassword,user.getSalt());
+        return jdbcUserRepository.editProfile(user,newFullName,newPhone,HashedPassword,newEmail) ;
+    }
 //
 //    public User changePassword(User user,String newPassword){
 //        return inMemoryUserRepository.changePassword(user,newPassword) ;

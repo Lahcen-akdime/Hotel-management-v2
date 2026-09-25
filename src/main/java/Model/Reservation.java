@@ -1,10 +1,12 @@
 package Model;
 
 import Enums.ReservationStatus;
+import Service.AuthService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class Reservation {
@@ -29,14 +31,15 @@ public class Reservation {
 
     static private int conteurPourCode = 1 ;
 
-    public Reservation(Room room, LocalDate checkin, LocalDate checkout, int numberOfGuests, Long numberOfNights, BigDecimal totalPrice , UUID userId ) {
+    public Reservation(Room room, LocalDate checkin, LocalDate checkout, int numberOfGuests) {
+        id = UUID.randomUUID() ;
         this.roomId = room.getId();
         this.checkin = checkin;
         this.checkout = checkout;
         this.numberOfGuests = numberOfGuests;
-        this.numberOfNights = numberOfNights;
-        this.totalPrice = totalPrice;
-        this.userId = userId ;
+        this.numberOfNights = ChronoUnit.DAYS.between(checkin,checkout);
+        this.totalPrice = room.getPricePerNight().multiply(new BigDecimal(this.numberOfNights)) ;
+        this.userId = AuthService.getCurrentUser().getId() ;
         this.reservationCode = "R-"+room.getRoomNumber()+checkin+(conteurPourCode++);
         this.reservationStatus = ReservationStatus.CONFIRMED ;
         this.cretedAt = LocalDateTime.now();
@@ -67,6 +70,10 @@ public class Reservation {
         return checkout;
     }
 
+    public UUID getRoomId() {
+        return roomId;
+    }
+
     public Long getNumberOfNights() {
         return numberOfNights;
     }
@@ -91,9 +98,14 @@ public class Reservation {
         this.reservationStatus = reservationStatus;
     }
 
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     @Override
     public String toString() {
         StringBuilder reservationInfo = new StringBuilder("[reservation] roomNumber : "+roomNumber+" , reservation code : "+reservationCode+" , reservation Status : "+reservationStatus.toString()+" , number of nights : "+numberOfNights) ;
         return reservationInfo.toString() ;
     }
+
 }

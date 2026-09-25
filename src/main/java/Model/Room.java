@@ -6,6 +6,7 @@ import Util.CalculationUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Room {
@@ -15,10 +16,12 @@ public class Room {
     private int capacite ;
     private BigDecimal pricePerNight ;
     private RoomStatus roomStatus ;
+    private static int counter = 100;
 
 
     public Room(RoomType type, BigDecimal pricePerNight,RoomStatus roomStatus) {
-        this.roomNumber = "R-+"+type+LocalDate.now().toString() ;
+        counter++ ;
+        this.roomNumber = "RN-"+LocalDate.now().toString()+counter ;
         this.type = type;
         this.capacite = CalculationUtils.CapaciteValueFromRoomType(type);
         this.pricePerNight = pricePerNight;
@@ -38,6 +41,10 @@ public class Room {
         return id;
     }
 
+    public void setId(UUID id) {
+        this.id = id ;
+    }
+
     public BigDecimal getPricePerNight() {
         return pricePerNight;
     }
@@ -55,6 +62,10 @@ public class Room {
         this.roomStatus = roomStatus;
     }
 
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
     public Boolean isAvailble(){
         if (roomStatus == RoomStatus.AVAILABLE){
             return true ;
@@ -66,7 +77,7 @@ public class Room {
 
     @Override
     public String toString() {
-        StringBuilder reservationInfo = new StringBuilder("[room] roomNumber : "+roomNumber+" , roomType : "+type+" , reservation Status : "+pricePerNight.toString()) ;
+        StringBuilder reservationInfo = new StringBuilder("[room] roomNumber : "+roomNumber+" , roomType : "+type+" , reservation Status : "+roomStatus.name()) ;
         return reservationInfo.toString() ;
     }
 

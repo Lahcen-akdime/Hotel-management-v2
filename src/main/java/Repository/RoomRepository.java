@@ -1,4 +1,4 @@
-package main.java.Repository;
+package Repository;
 
 import Model.Room;
 
@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface RoomRepository {
 
     void save(Room room);
-    Optional<Room> findByRoomNumber(Integer roomNumber) ;
+    Room findByRoomNumber(String roomNumber) ;
     List<Room> getAll();
     List<Room> getAvailbleRooms() ;
 }

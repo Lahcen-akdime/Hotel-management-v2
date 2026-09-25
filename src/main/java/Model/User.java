@@ -15,17 +15,17 @@ public class User {
     private String phone ;
     private String password ;
     private UserRole userRole ;
-    private String passwordHash ;
+    private String NotHashedpassword ;
     private String salt ;
 
-    public User(String fullName , String email , String phone ,  String password , UserRole userRole,UUID id,String salt) {
+    public User(String fullName , String email , String phone , String NotHashedpassword ,  String password , UserRole userRole,UUID id,String salt) {
         this.id = id;
         this.email = email;
         this.fullName = fullName;
         this.phone = phone;
         this.password = password;
         this.userRole = userRole ;
-        this.passwordHash =
+        this.NotHashedpassword = NotHashedpassword ;
         this.salt = salt ;
     }
 
@@ -69,6 +69,10 @@ public class User {
         this.phone = phone;
     }
 
+    public String getNotHashedpassword() {
+        return NotHashedpassword;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -76,7 +80,7 @@ public class User {
     @Override
     public String toString() {
         StringBuilder userNameAndEmail = new StringBuilder();
-        userNameAndEmail.append("[user] fullName : "+fullName+", email : "+email+" , id : "+id) ;
+        userNameAndEmail.append("[user] fullName : "+fullName+", email : "+email+" , phone : "+phone) ;
         return userNameAndEmail.toString();
     }
 }

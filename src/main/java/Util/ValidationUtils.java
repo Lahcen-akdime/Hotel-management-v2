@@ -27,7 +27,7 @@ public class ValidationUtils {
     }
     public static void CheckisAdmin(UserRole userRole){
         if(!userRole.equals(UserRole.admin)){
-            throw new UnothorizedRequestException("You cant access this page") ;
+            throw new UnothorizedRequestException("You cant access this page its just for admins") ;
         }
     }
     public static void ThisEmailShouldExist(Boolean isExist){

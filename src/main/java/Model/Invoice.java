@@ -20,6 +20,7 @@ public class Invoice {
     private static int incriment ;
 
     public Invoice(Payement payement) {
+        this.id = UUID.randomUUID() ;
         this.total_ttc = payement.getAmount();
         this.subtotal_ht = this.total_ttc.divide(BigDecimal.valueOf(1.20),2, RoundingMode.HALF_UP);
         this.tva_amount = this.total_ttc.subtract(subtotal_ht);

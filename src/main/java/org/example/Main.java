@@ -34,9 +34,12 @@ public class Main {
     private static RoomService roomService = new RoomService() ;
     private static InputUtils inputUtils = new InputUtils() ;
     private static AdminInitializer adminInitializer = new AdminInitializer();
+    private static DatabaseInitializer databaseInitializer = new DatabaseInitializer() ;
+
 
     // Menus
-    public static void mainMenu(){
+    public static void mainMenu()throws IOException , SQLException{
+        //databaseInitializer.executeSqlFile();
         Boolean continuer = true ;
         while(continuer){
             System.out.println("==========================");
@@ -256,7 +259,13 @@ public class Main {
     // ============== For reservations =============
 
     static void main() {
+        try {
         mainMenu();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

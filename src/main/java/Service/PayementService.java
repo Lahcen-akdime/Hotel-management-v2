@@ -16,10 +16,9 @@ public  class PayementService {
     private PricingParSeason pricingParSeason = new PricingParSeason() ;
 
     public Payement save(Reservation reservation, Room room, PayementMethod payementMethod , PayementStatus payementStatus){
-
         BigDecimal amount = pricingParSeason.calculatePrice(room,reservation.getCheckin(),reservation.getCheckout());
         Payement payement = new Payement(reservation.getId(),amount,payementMethod,payementStatus) ;
         return jdbcPayementRepository.save(payement);
-
     }
+
 }

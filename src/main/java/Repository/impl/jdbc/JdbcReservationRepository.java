@@ -21,7 +21,7 @@ public class JdbcReservationRepository implements ReservationRepository {
     private static String cancelByCodeQuery = "UPDATE reservations SET reservation_status = 'CANCELED' WHERE reservation_code = ? ";
     private static String getAllReservationQuery = "SELECT * FROM reservations";
     @Override
-    public void save(Reservation reservation) {
+    public Boolean save(Reservation reservation) {
         try {
         PreparedStatement statement = connection.prepareStatement(saveQuery);
         statement.setObject(1,reservation.getId());
@@ -33,9 +33,10 @@ public class JdbcReservationRepository implements ReservationRepository {
         statement.setInt(7,reservation.getNumberOfGuests());
         statement.setBigDecimal(8,reservation.getTotalPrice());
         statement.setString(9,reservation.getReservationStatus().name());
-        statement.execute() ;
+        return statement.executeUpdate() == 1 ;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return false ;
         }
     }
 

@@ -1,6 +1,10 @@
 package Service;
 
+import Enums.PayementMethod;
+import Enums.PayementStatus;
 import Enums.ReservationStatus;
+import Model.Invoice;
+import Model.Payement;
 import Model.Reservation;
 import Model.Room;
 import Repository.impl.jdbc.JdbcReservationRepository;
@@ -11,8 +15,11 @@ import Util.ValidationUtils;
 import Exception.InvalidReservationDateException ;
 import Exception.RoomUnavailableException ;
 import Exception.RoomNotFoundException ;
+import db.DatabaseConnection;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -48,8 +55,11 @@ public class ReservationService {
     private static AuthService authService = new AuthService() ;
     private static JdbcReservationRepository jdbcReservationRepository = new JdbcReservationRepository() ;
     private static JdbcRoomRepository jdbcRoomRepository = new JdbcRoomRepository() ;
+    private static PayementService payementService = new PayementService() ;
+    private static InvoiceService invoiceService = new InvoiceService() ;
+    Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public void createReservation(String roomNumber, String checkin, String checkout, int numberOfGuests){
+    public void createReservation(String roomNumber, String checkin, String checkout, int numberOfGuests, PayementMethod payementMethod){
         try {
             // get room
             Room room = roomService.findRoomByNumber(roomNumber) ;
@@ -73,20 +83,37 @@ public class ReservationService {
         ValidationUtils.TheCapaciteOfRoomIsPossible(numberOfGuests,room);
         // create + save the reservation
         Reservation reservation = new Reservation(room,chekinDate,chekoutDate,numberOfGuests);
-        jdbcReservationRepository.save(reservation);
-            //System.out.println(jdbcReservationRepository.findAll().toString());
-            //treeDatesOfReservations(room) ;
-
+        connection.setAutoCommit(false);
+        PayementStatus status = null ;
+        if(payementMethod == PayementMethod.CARD){
+            status = PayementStatus.PAYED ;
+        } else
+            status = PayementStatus.PENDING ;
+        if (!jdbcReservationRepository.save(reservation)){
+            connection.rollback();
+        }
+        Payement payement = payementService.save(reservation,room,payementMethod, status) ;
+          if(payement == null){
+              connection.rollback();
+          }
+          Invoice invoice = new Invoice(payement) ;
+          invoiceService.save(invoice,payement) ;
+        connection.commit();
+        connection.setAutoCommit(true);
         }
         catch (InvalidReservationDateException e) {
             System.out.println(e.getMessage());
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date ( la date doit respecter cette format : 2026-09-20 )");
+            System.out.println("Invalid date ( la date doit respecter cette format : 2026-09-30 )");
         } catch (DateTimeException e) {
             System.out.println(e.getMessage());
         } catch (RoomNotFoundException e) {
             System.out.println(e.getMessage());
-        } catch (Exception e) {
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

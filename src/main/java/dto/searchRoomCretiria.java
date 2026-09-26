@@ -10,27 +10,11 @@ import java.util.List;
 
 public class searchRoomCretiria {
 
-    LocalDate checkin ;
-    LocalDate checkout ;
-    Integer number_Of_Guests ;
+    Room room ;
 
     public searchRoomCretiria(Room room){
-        this.checkin = room. ;
-        this.checkout = checkout ;
-        this.number_Of_Guests = number_Of_Guests ;
+        this.room = room ;
     }
 
-    public LocalDate getCheckin() {
-        return checkin;
-    }
-
-    public LocalDate getCheckout() {
-        return checkout;
-    }
-
-
-    public Integer getNumber_Of_Guests() {
-        return number_Of_Guests;
-    }
 
 }

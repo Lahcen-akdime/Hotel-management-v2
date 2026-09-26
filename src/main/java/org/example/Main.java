@@ -3,10 +3,7 @@ package org.example;
 
 
 import Config.DatabaseInitializer;
-import Enums.ReservationStatus;
-import Enums.RoomStatus;
-import Enums.RoomType;
-import Enums.UserRole;
+import Enums.*;
 import Initializer.AdminInitializer;
 import Model.Reservation;
 import Model.Room;
@@ -216,7 +213,19 @@ public class Main {
         String checkout = inputUtils.lireString("date de sortie au meme format : 2026-09-30") ;
         System.out.println("Combien de guest ?");
         int numberOfGuests = inputUtils.lireInt();
-        reservationService.createReservation(roomNumber ,checkin,checkout,numberOfGuests);
+        PayementMethod payement_methode = null ;
+        do{
+            System.out.println("Reservation payement_methode : ");
+            System.out.println("1 - CASH");
+            System.out.println("2 - CARD");
+            int choice = inputUtils.lireInt();
+            switch (choice){
+                case 1 : payement_methode = PayementMethod.CASH;break;
+                case 2 : payement_methode = PayementMethod.CARD ;break;
+                default:payement_methode = null;break;
+            }
+        } while (payement_methode == null) ;
+        reservationService.createReservation(roomNumber ,checkin,checkout,numberOfGuests,payement_methode);
     }
 
     public static void updateReservation(){

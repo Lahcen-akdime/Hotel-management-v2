@@ -1,10 +1,10 @@
 package Mapper;
 
 import Enums.PayementMethod;
+import Enums.PayementStatus;
 import Enums.RoomStatus;
 import Enums.RoomType;
 import Model.Payement;
-import main.java.Enums.PayementStatus ;
 import Model.Room;
 
 import java.math.BigDecimal;
@@ -40,9 +40,10 @@ public class PayementMapper {
     public static Payement setPayementProperties(ResultSet result)throws SQLException{
 
         UUID reservationId = result.getObject("reservation_id", UUID.class) ;
-        Integer amount = result.getInt("amount") ;
+        BigDecimal amount = result.getObject("amount", BigDecimal.class) ;
         PayementMethod payementMethod = PayementMethod.valueOf(result.getString("payment_method").toUpperCase()) ;
-        Payement payement = new Payement(reservationId,amount,payementMethod);
+        PayementStatus payementStatus = PayementStatus.valueOf(result.getString("payment_status").toUpperCase()) ;
+        Payement payement = new Payement(reservationId,amount,payementMethod,payementStatus);
         payement.setId(result.getObject("id", UUID.class));
         return payement ;
 

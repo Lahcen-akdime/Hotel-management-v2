@@ -2,10 +2,11 @@ package policy;
 
 import Model.Room;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public interface PricingStrategy {
 
-    public Integer calculatePrice(Room room , LocalDate checkin , LocalDate checkout) ;
+    public BigDecimal calculatePrice(Room room , LocalDate checkin , LocalDate checkout) ;
 
 }

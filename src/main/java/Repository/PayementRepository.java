@@ -1,10 +1,11 @@
 package Repository;
 
-import Model.Invoice;
 import Model.Payement;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface PayementRepository {
-    public Payement save() ;
-    public Payement findById() ;
-    public Payement findByReservationId() ;
+    Payement save(Payement payement);
+    Optional<Payement> findById(UUID id);
+    Optional<Payement> findByReservationId(UUID reservationId);
 }

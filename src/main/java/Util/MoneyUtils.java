@@ -5,17 +5,12 @@ import Exception.InvalidCredentialsException ;
 
 public class MoneyUtils {
 
-    public static BigDecimal totalPrice(BigDecimal pricePerNight , Long nightsNumber){
-        return pricePerNight.multiply(new BigDecimal(nightsNumber)) ;
-    }
-
-    public static Integer applyPercentage(Integer montant , Integer pourcentage){
+    public static BigDecimal applyPercentage(BigDecimal montant , BigDecimal pourcentage){
         if (montant != null && pourcentage!= null){
-        Integer result = montant * (1 + ( pourcentage / 100 )) ;
-        return result + montant ;
+        BigDecimal result = montant.multiply(pourcentage.divide(new BigDecimal(100))) ;
+        return result  ;
         } else {
             throw new InvalidCredentialsException("Le montant ou le pourcentage est null") ;
         }
     }
-
 }
